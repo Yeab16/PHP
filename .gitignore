@@ -1,4 +1,4 @@
- #ignore all txt cms files
+ #ignore all sql files
 
-*.txt
+
 *.sql

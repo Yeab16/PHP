@@ -1,0 +1,73 @@
+                                                                        GIt cheat  sheet
+
+SETUP
+
+Configuring user information used across all local repositories
+
+git config --global user.name “[firstname lastname]”
+
+set a name that is identifiable for credit when review version history
+
+git config --global user.email “[valid-email]”
+
+set an email address that will be associated with each history marker
+
+//git config --global color.ui auto
+
+//set automatic command line coloring for Git for easy reviewing
+  
+Defaut branch 
+git config --global init.default branch main
+  
+Go to you project directory enter
+
+git init
+
+ and the .git folder will be created.
+
+git status // to check the status
+ 
+
+git add "filename" || git add --All || git add --A  //it is also called staging (to track the filename)
+
+git restore --staged "filename"  //to  unstagging
+
+git commit -m "first commit"  // To commit or take snapshot
+
+git commit -a -m "some text" // To skip staging process
+ //You can also add .gitignore file manually
+
+git diff  //shows us what are the differences between the commited and before commite file
+
+
+git rm "file name" //to remove the file or delete the file
+
+git restore "filename" //to restore deleted file
+
+
+git mv [existing-path] [new-path]  //move the file ore rename
+
+git log // to see all different commits
+
+git branch // to see how many branches are there
+
+git branch "branch name" // to create branch
+
+git switch "branch name" // to switch branch
+
+git merge -m "some text" branch name // to merge 
+
+git branch -d "branch name" // to delete branch
+
+git switch -c "branch name" // to create and move to the branch once
+
+…or push an existing repository from the command line
+git remote add origin https://github.com/Yeab16/Git.git
+git branch -M main
+git push -u origin main
+
+
+
+
+
+
