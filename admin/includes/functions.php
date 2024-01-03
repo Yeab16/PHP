@@ -1,5 +1,15 @@
 <?php
 
+function escaping($string)
+{
+    global $connection;
+    return mysqli_real_escape_string($connection, trim($string));
+}
+
+
+
+
+
 
 function usersOnline()
 {
@@ -9,10 +19,10 @@ function usersOnline()
 
         global $connection;
         if (!$connection) {
-             session_start();
-             include "../includes/db.php";
+            session_start();
+            include "../includes/db.php";
 
-           
+
 
             $session = session_id();
             $time = time();
@@ -32,16 +42,16 @@ function usersOnline()
             }
 
             $users_online_query = mysqli_query($connection, "SELECT * FROM users_online WHERE time > '$time_out'");
-        echo $count_user = mysqli_num_rows($users_online_query);
+            echo $count_user = mysqli_num_rows($users_online_query);
 
 
 
 
-        
-        }
 
         }
-    
+
+    }
+
 }
 
 usersOnline();
