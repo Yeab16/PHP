@@ -1,0 +1,4 @@
+ #ignore all txt cms files
+
+*.txt
+*.sql
