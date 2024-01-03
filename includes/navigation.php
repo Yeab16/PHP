@@ -27,9 +27,27 @@ include "./admin/includes/functions.php";
                 $query = "SELECT * FROM categories";
                 $select_all_categories_query = mysqli_query($connection, $query);
                 while ($row = mysqli_fetch_assoc($select_all_categories_query)) {
+                    $cat_id = $row['cat_id'];
                     $cat_title = $row['cat_title'];
 
-                    echo "<li><a href='#'>{$cat_title}</a></li>";
+                    $category_class = '';
+                    $registeration_class = '';
+
+
+                    $pageName = basename($_SERVER['PHP_SELF']);
+
+                    $registeration = 'registeration.php';
+                    if (isset($_GET['category']) && $_GET['category'] == $cat_id) {
+
+                        $category_class = 'active';
+                    } else if ($pageName == $registeration) {
+
+                        $registeration_class = 'active';
+                    }
+
+
+
+                    echo "<li><a class='$category_class' href='category.php?category={$cat_id}'>{$cat_title}</a></li>";
                 }
                 ?>
 
@@ -37,7 +55,7 @@ include "./admin/includes/functions.php";
                     <a href="admin">Admin</a>
                 </li>
                 <li>
-                    <a href="./registration.php">Register</a>
+                    <a class='<?php $registeration_class ?>' href="./registration.php">Register</a>
                 </li>
                 <li>
                     <a href="./contacts.php">Contact US</a>
