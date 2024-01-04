@@ -24,7 +24,7 @@ if (isset($_POST['checkBoxArray'])) {
         $query = "DELETE FROM posts WHERE post_id={$postValueId}";
         $delete_post = mysqli_query($connection, $query);
         confirm($delete_post);
-        $delete_query_comment= "DELETE FROM comments WHERE comment_post_id = {$postValueId}";
+        $delete_query_comment = "DELETE FROM comments WHERE comment_post_id = {$postValueId}";
         $delete_query_comments = mysqli_query($connection, $delete_query_comment);
 
         break;
@@ -108,7 +108,9 @@ if (isset($_POST['checkBoxArray'])) {
     <th>Comments</th>
     <th>Date</th>
     <th>Views</th>
-    <th>View all post</th>
+    <th>View post</th>
+    <th>Edit</th>
+    <th>Delete</th>
 
   </tr>
 </thead>
@@ -116,7 +118,17 @@ if (isset($_POST['checkBoxArray'])) {
 
   <?php
 
-  $query = "SELECT * FROM posts ORDER BY post_id Desc";
+  $role = $_SESSION['user_role'];
+
+  if ($role == "Subscriber") {
+    $user = $_SESSION['user_id'];
+
+
+    $query = "SELECT * FROM posts where post_author = '{$user}'ORDER BY post_id Desc";
+  } else {
+    $query = "SELECT * FROM posts ORDER BY post_id Desc";
+  }
+
   $select_post = mysqli_query($connection, $query);
   while ($row = mysqli_fetch_assoc($select_post)) {
 
@@ -151,9 +163,9 @@ if (isset($_POST['checkBoxArray'])) {
 
     }
     $query_user = "SELECT * FROM comments WHERE comment_post_id=$post_id";
-    $post_comment_count= mysqli_query($connection, $query_user);
-    $count_comment=mysqli_num_rows($post_comment_count);
-   
+    $post_comment_count = mysqli_query($connection, $query_user);
+    $count_comment = mysqli_num_rows($post_comment_count);
+
 
 
     echo "<tr>";
@@ -168,13 +180,13 @@ if (isset($_POST['checkBoxArray'])) {
     echo "<td>$post_content</td>";
     echo "<td>$post_tags</td>";
 
- echo "<td><a href='comments.php?allComments={$post_id}'>$count_comment</a></td>";
+    echo "<td><a href='comments.php?allComments={$post_id}'>$count_comment</a></td>";
 
-    echo "<td>$post_date</td>";
-    echo "<td><a href='viewers.php?viewers={$post_id}' >$post_views</a> </td>";
-    echo "<td><a href='../post.php?p_id={$post_id}'>View Post</a></td>";
-    echo "<td><a href='post.php?src=edit_post&p_id={$post_id}'>Edit</a></td>";
-    echo "<td><a onClick=\"javascript: return confirm('Are you sure to delete');\" href='post.php?delete={$post_id}'>Delete</a></td>";
+    echo "<td class='mx-auto' style='width: 200px;'>$post_date</td>";
+    echo "<td><a href='viewers.php?viewers={$post_id}'  >$post_views</a> </td>";
+    echo "<td><a href='../post.php?p_id={$post_id}' class='btn btn-primary'>View Post</a></td>";
+    echo "<td><a href='post.php?src=edit_post&p_id={$post_id}' class='btn btn-info'>Edit</a></td>";
+    echo "<td><a onClick=\"javascript: return confirm('Are you sure to delete');\" href='post.php?delete={$post_id}' class='btn btn-danger'>Delete</a></td>";
     echo "</tr>";
 
   }

@@ -120,6 +120,39 @@ function deleteCategories()
 }
 
 
+function counts($table)
+{
+    global $connection;
+    $query = "SELECT * FROM $table";
+    $select_all = mysqli_query($connection, $query);
+    return $counts = mysqli_num_rows($select_all);
+
+
+}
+
+function countwith($table, $col, $data)
+{
+    global $connection;
+    $query = "SELECT * FROM $table where $col = '{$data}'";
+    $select_all = mysqli_query($connection, $query);
+    return $counts = mysqli_num_rows($select_all);
+    if (!$counts) {
+        die("QUERY FAILED." . mysqli_error($connection));
+    }
+
+}
+function countwith4p($table, $col, $data, $col2, $data2)
+{
+    global $connection;
+    $query = "SELECT * FROM $table where $col = '{$data}' && $col2 ='{$data2}'";
+    $select_all = mysqli_query($connection, $query);
+    return $counts = mysqli_num_rows($select_all);
+    if (!$counts) {
+        die("QUERY FAILED." . mysqli_error($connection));
+    }
+
+}
+
 
 
 

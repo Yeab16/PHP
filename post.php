@@ -105,64 +105,64 @@ include "includes/navigation.php";
 
 
 
-            
-
-<?php
-
-if (isset($_SESSION['username'])) {
 
 
-    if (isset($_POST['create_comment'])) {
-        $the_post_id = $_GET['p_id'];
+            <?php
+
+            if (isset($_SESSION['username'])) {
 
 
-        $comment_author = $_SESSION['username'];
-        $comment_email =  $_SESSION['email'] ;
-        $comment_content = $_POST['comment_content'];
-        if (!empty($comment_content)) {
-
-            $query = "INSERT INTO comments (comment_post_id,comment_author,comment_email,comment_content,comment_status,comment_date)";
-
-            $query .= "VALUES ($the_post_id,'{$comment_author}','{$comment_email}','{$comment_content}','unapproved',now())";
+                if (isset($_POST['create_comment'])) {
+                    $the_post_id = $_GET['p_id'];
 
 
-            $create_comment_query = mysqli_query($connection, $query);
+                    $comment_author = $_SESSION['username'];
+                    $comment_email = $_SESSION['email'];
+                    $comment_content = $_POST['comment_content'];
+                    if (!empty($comment_content)) {
 
-            $query = "UPDATE posts SET post_comment_count = post_comment_count + 1 WHERE post_id = $the_post_id";
-            $update_comment_count = mysqli_query($connection, $query);
-            if (!$create_comment_query) {
-                die('QUERY FAILED' . mysqli_error($connection));
+                        $query = "INSERT INTO comments (comment_post_id,comment_author,comment_email,comment_content,comment_status,comment_date)";
+
+                        $query .= "VALUES ($the_post_id,'{$comment_author}','{$comment_email}','{$comment_content}','unapproved',now())";
+
+
+                        $create_comment_query = mysqli_query($connection, $query);
+
+                        $query = "UPDATE posts SET post_comment_count = post_comment_count + 1 WHERE post_id = $the_post_id";
+                        $update_comment_count = mysqli_query($connection, $query);
+                        if (!$create_comment_query) {
+                            die('QUERY FAILED' . mysqli_error($connection));
+                        }
+                    } else {
+
+
+                        echo "<script> alert('Fields can not be empty')</script>";
+                    }
+
+
+
+
+
+
+                }
+
+
+
+
+
+
+            } else {
+                echo "<script> alert('You must register to comment')</script>";
             }
-        } else {
 
-
-            echo "<script> alert('Fields can not be empty')</script>";
-        }
+            ?>
 
 
 
 
 
 
-    }
 
-
-
-
-
-    
-} else {
-    echo "<script> alert('You must register to comment')</script>";
-}
-
-?>
-
-
-
-
-
-
-            
 
 
 
@@ -170,7 +170,7 @@ if (isset($_SESSION['username'])) {
             <div class="well">
                 <h4>Leave a Comment:</h4>
                 <form role="form" action="" method="post">
-                   <div class="form-group">
+                    <div class="form-group">
                         <label for="Author">Your Comment</label>
                         <textarea class="form-control" rows="3" name="comment_content"></textarea>
                     </div>

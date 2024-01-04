@@ -2,6 +2,10 @@
 include "db.php";
 ?>
 <?php
+include "../admin/includes/functions.php";
+
+?>
+<?php
 session_start();
 ?>
 
@@ -10,11 +14,11 @@ if (isset($_POST['login'])) {
   $username = $_POST['username'];
   $password = $_POST['password'];
 
-
+  $username = escaping($username);
+  $password = escaping($password);
 
 }
-$username = escaping($username);
-$password = escaping($password);
+
 
 
 
@@ -60,9 +64,6 @@ if ($username === $db_username && $password === $db_user_password) {
   $_SESSION['user_role'] = $db_user_role;
   $times = 0;
   $_SESSION['times'] = $times;
-
-
-
 
 
   header("Location: ../admin");
